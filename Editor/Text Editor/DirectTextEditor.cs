@@ -10,8 +10,8 @@ namespace CHG.Utilities.Texts
     /// </summary>
     
     [CustomEditor(typeof(TextAsset))]
-    public class DirectTextEditor : Editor
-    {        
+    public class DirectTextEditor : UnityEditor.Editor
+    {
         private DirectTextEditHeader header = new DirectTextEditHeader();
         private ITextAssetEditor defaultEditor = new CommonTextEditor();
 
@@ -30,7 +30,7 @@ namespace CHG.Utilities.Texts
             isDirty = false;
         }
         private void OnDisable() {
-            if(initialText != lastText)
+            if(initialText != lastText && isDirty)
             {
                 if(EditorUtility.DisplayDialog("변경 사항 저장",
                     "텍스트 어셋의 내용이 변경되었습니다.\n저장하시겠습니까?",
@@ -58,12 +58,6 @@ namespace CHG.Utilities.Texts
             GUILayout.BeginVertical();
             HeaderInfo headerResult = header.DrawHeader(useCustomEdit);
 
-            GUI.enabled = isDirty && !headerResult.IsReadOnly;
-            if(GUILayout.Button("SAVE"))
-            {
-                UpdateAsset(targetAsset);
-            }
-            GUI.enabled = true;
             GUILayout.Box("", GUILayout.Height(1), GUILayout.ExpandWidth(true));
             //Body
             EditorGUI.BeginDisabledGroup(headerResult.IsReadOnly);
@@ -80,6 +74,19 @@ namespace CHG.Utilities.Texts
                 lastText = text;
                 isDirty = true;
             }
+            GUILayout.BeginHorizontal();
+            GUI.enabled = isDirty;
+            if(GUILayout.Button("저장"))
+            {
+                UpdateAsset(targetAsset);
+            }
+            // if(GUILayout.Button("REVERT"))
+            // {
+            //     lastText = initialText;
+            //     isDirty = false;
+            // }
+            GUI.enabled = true;
+            GUILayout.EndHorizontal();
             EditorGUI.EndDisabledGroup();
             GUILayout.EndVertical();
         }
@@ -88,6 +95,8 @@ namespace CHG.Utilities.Texts
         {
             var path = AssetDatabase.GetAssetPath(textAsset);
             File.WriteAllText(path, lastText);
+
+            isDirty = false;
 
             AssetDatabase.ImportAsset(path, ImportAssetOptions.ForceUpdate);
         }

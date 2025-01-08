@@ -5,6 +5,10 @@ using UnityEngine.Events;
 
 namespace CHG.Utilities.Patterns
 {
+    /// <summary>
+    /// UnityAction 리스트를 관리하는 컨테이너 베이스 클래스<br />
+    /// 유효하지 않은 이벤트를 자동 삭제하는 안전장치 적용.
+    /// </summary>
     [Serializable]
     public abstract class BaseActionContainer
     {

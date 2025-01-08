@@ -5,13 +5,13 @@ using UnityEngine.UI;
 
 namespace CHG.Utilities.UI {
     public class ButtonEx : Button
-    {
+    {   
         bool isDown = false;
         bool isFocused = false;
 
-        [SerializeField]
+        [SerializeField, Tooltip("버튼이 클릭되었을 때 호출되는 이벤트")]
         UnityEvent onPointerDownEvent = new UnityEvent();
-        [SerializeField]
+        [SerializeField, Tooltip("클릭된 버튼에서 손을 떼면 호출되는 이벤트")]
         UnityEvent onPointerUpEvent = new UnityEvent();
 
         protected override void Start() {

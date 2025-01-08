@@ -21,6 +21,13 @@ namespace CHG.Utilities.Sound
             }
         }
         
+        /// <summary>
+        /// 배경음악 클립을 플레이
+        /// </summary>
+        /// <param name="clip">재생할 배경음악 AudioClip</param>
+        /// <param name="immediate">배경음악이 바뀔 때 Fade 효과를 적용할지 여부</param>
+        /// <param name="loop">배경음악이 루프될지 여부</param>
+        /// <returns></returns>
         public AudioClip PlayMusic(AudioClip clip, bool immediate = false, bool loop = true)
         {
             AudioClip rtn = audioSource.clip;
@@ -76,6 +83,10 @@ namespace CHG.Utilities.Sound
 
             audioSource.volume = targetVolume; // 최종 볼륨 설정
         }
+        /// <summary>
+        /// 현재 재생중인 배경음악 중단
+        /// </summary>
+        /// <param name="immediate">Fade 효과를 적용할지 여부</param>
         public void StopMusic(bool immediate = true)
         {
             if(!audioSource.isPlaying)
@@ -86,7 +97,10 @@ namespace CHG.Utilities.Sound
             else
                 StartCoroutine("FadeOut");
         }
-
+        /// <summary>
+        /// 배경음악 볼륨 설정
+        /// </summary>
+        /// <param name="newVolume">새로운 볼륨(0~1)</param>
         public void SetVolume(float newVolume)
         {
             volume = newVolume;

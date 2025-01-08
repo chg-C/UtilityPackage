@@ -5,11 +5,18 @@ using System.IO;
 using System.Text;
 namespace CHG.Utilities.Datas
 {
+    /// <summary>
+    /// INI 파일을 사용하는 Wrapper 클래스
+    /// </summary>
     public class IniFile
     {
         private readonly string filePath;
         private Dictionary<string, Dictionary<string, string>> data;
 
+        /// <summary>
+        /// 생성자
+        /// </summary>
+        /// <param name="path">INI 파일이 위치한 경로</param>
         public IniFile(string path)
         {
             filePath = path;
@@ -45,7 +52,13 @@ namespace CHG.Utilities.Datas
                 }
             }
         }
-
+        /// <summary>
+        /// 값 얻어오기
+        /// </summary>
+        /// <param name="section">섹션</param>
+        /// <param name="key">키 값</param>
+        /// <param name="defaultValue">Fallback 값</param>
+        /// <returns>설정 값</returns>
         public string GetValue(string section, string key, string defaultValue = "")
         {
             if (data.ContainsKey(section) && data[section].ContainsKey(key))
@@ -54,7 +67,12 @@ namespace CHG.Utilities.Datas
             }
             return defaultValue;
         }
-
+        /// <summary>
+        /// 값 설정하기
+        /// </summary>
+        /// <param name="section">섹션</param>
+        /// <param name="key">키 값</param>
+        /// <param name="value">설정 값</param>
         public void SetValue(string section, string key, string value)
         {
             if (!data.ContainsKey(section))

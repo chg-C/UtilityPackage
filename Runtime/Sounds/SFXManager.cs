@@ -25,11 +25,19 @@ namespace CHG.Utilities.Sound
 
             audioSource.volume = volume;
         }
-
+        /// <summary>
+        /// 효과음 재생하기 
+        /// </summary>
+        /// <param name="clip">재생할 효과음 AudioClip</param>
+        /// <param name="volume">효과음의 볼륨</param>
         public void Play(AudioClip clip, float volume = 1)
         {
             audioSource.PlayOneShot(clip, volume);
-        }        
+        }
+        /// <summary>
+        /// 효과음 볼륨 설정
+        /// </summary>
+        /// <param name="newVolume">새로운 볼륨(0~1)</param>
         public void SetVolume(float newVolume)
         {
             volume = newVolume;

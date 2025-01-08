@@ -12,8 +12,8 @@ namespace CHG.Utilities.Texts
         };
 
         private readonly string[] TABNAMES = new string[] {
-            "Custom Editor",
-            "Original Text"
+            "맞춤형 에디터",
+            "RAW 텍스트 에디터"
         };
 
         public HeaderInfo DrawHeader(bool useCustomEdit)
@@ -29,7 +29,7 @@ namespace CHG.Utilities.Texts
 
             GUILayout.FlexibleSpace();
             
-            bool isReadOnly = GUILayout.Toggle(selectedHeaderInfo.IsReadOnly, "Read Only");
+            bool isReadOnly = GUILayout.Toggle(selectedHeaderInfo.IsReadOnly, "읽기 전용");
             selectedHeaderInfo.IsReadOnly = isReadOnly;
 
             bool isDirty = (wasCustomEdit != selectedHeaderInfo.UseCustomEdit) || (wasReadOnly != selectedHeaderInfo.IsReadOnly);

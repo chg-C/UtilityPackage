@@ -4,9 +4,9 @@
     {
         public class SelfDestructor : MonoBehaviour
         {
-            [SerializeField]
+            [SerializeField, Tooltip("Self Destructor가 활성화되는 순간 파괴 발생")]
             bool destroyOnAwake;
-            [SerializeField]
+            [SerializeField, Tooltip("파괴 발생시 Delay")]
             float delay = 0;
 
             
