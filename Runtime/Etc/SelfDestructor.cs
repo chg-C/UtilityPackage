@@ -4,16 +4,10 @@
     {
         public class SelfDestructor : MonoBehaviour
         {
-            [SerializeField, Tooltip("Self Destructor가 활성화되는 순간 파괴 발생")]
+            [SerializeField, Tooltip("Self Destructor가 활성화되는 순간 Destroy 발생")]
             bool destroyOnAwake;
-            [SerializeField, Tooltip("파괴 발생시 Delay")]
+            [SerializeField, Tooltip("Destroy Delay")]
             float delay = 0;
-
-            
-            SelfDestructor(float delay)
-            {
-                this.delay = delay;
-            }
 
             void Awake() 
             {

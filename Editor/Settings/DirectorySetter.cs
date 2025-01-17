@@ -123,25 +123,26 @@ namespace CHG.Utilities.Setting
 
             //
             Directory plugin = new Directory("플러그인(Plugins)", "Plugins", true);
+            Directory scripttemplates = new Directory("스크립트 템플릿(ScriptTemplates)", "ScriptTemplates", false);
             Directory editor_resources = new Directory("에디터 기본 리소스(Editor Default Resources)", "Editor Default Resources", false);
             Directory resources = new Directory("동적 리소스(Resources)", "Resources", false);
             Directory streamingAssets = new Directory("스트리밍 어셋(StreamingAssets)", "StreamingAssets", false);
             
             reservedDirectories.Add(plugin);
+            reservedDirectories.Add(scripttemplates);
+            reservedDirectories.Add(editor_resources);
             reservedDirectories.Add(resources);
             reservedDirectories.Add(streamingAssets);
             //
 
             //
             Directory script = new Directory("스크립트(Scripts)", "Scripts", true);
-            Directory scripttemplates = new Directory("스크립트 템플릿(ScriptTemplates)", "ScriptsTemplates", true);
             Directory script_editor = new Directory("에디터 스크립트(Scripts/Editor)", "Scripts/Editor", false, script);
             Directory script_utility = new Directory("유틸리티 스크립트(Scripts/Utilities)", "Scripts/Utilities", false, script);
             Directory prefab = new Directory("프리팹(Prefabs)", "Prefabs", true);
             Directory scene = new Directory("씬(Scenes)", "Scenes", true);
 
             defaultDirectories.Add(script);
-            defaultDirectories.Add(scripttemplates);
             defaultDirectories.Add(script_editor);
             defaultDirectories.Add(script_utility);
             defaultDirectories.Add(scene);
