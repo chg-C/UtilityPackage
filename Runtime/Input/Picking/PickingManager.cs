@@ -1,11 +1,13 @@
-using CHG.Utilities.EditorExpansion;
+using CHG.Utilities.Attribute;
 using CHG.Utilities.Patterns;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.EnhancedTouch;
 
+#if UNITY_ANDROID || UNITY_IPHONE
+using UnityEngine.InputSystem.EnhancedTouch;
 using Touch = UnityEngine.InputSystem.EnhancedTouch.Touch;
+#endif
 
 namespace CHG.Utilities.Input
 {
@@ -15,13 +17,14 @@ namespace CHG.Utilities.Input
         [SerializeField, Tooltip("Picking을 발생시킬 Event의 이름"), Required]
         string pickingEventName;
         
-        Camera mainCam;
+        Camera pickingCam;
         ActionContainer<Ray> pickingActions = new ActionContainer<Ray>("Picking");
         Ray ray;
         
         private void Awake() {
-            mainCam = GetComponent<Camera>();
+            pickingCam = GetComponent<Camera>();
         }
+        
         private void OnEnable() {
             GlobalInputManager.Instance.RegisterButtonEvent(pickingEventName, OnPicking);            
         }
@@ -36,12 +39,12 @@ namespace CHG.Utilities.Input
         {
             Vector2 inputPosition = Vector2.zero;
             
-            #if UNITY_EDITOR
-            inputPosition = Mouse.current.position.ReadValue();
-            #elif UNITY_ANDROID || UNITY_IPHONE
+            #if UNITY_ANDROID || UNITY_IPHONE
             inputPosition = Touch.activeTouches[0].screenPosition;
+            #else
+            inputPosition = Mouse.current.position.ReadValue();
             #endif
-            ray = mainCam.ScreenPointToRay(inputPosition);
+            ray = pickingCam.ScreenPointToRay(inputPosition);
 
             pickingActions?.InvokeAll(ray);
         }

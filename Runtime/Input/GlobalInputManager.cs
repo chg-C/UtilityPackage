@@ -7,7 +7,7 @@ using UnityEngine.Events;
 
 using CHG.Utilities.Patterns;
 using UnityEngine.InputSystem;
-using CHG.Utilities.EditorExpansion;
+using CHG.Utilities.Attribute;
 
 namespace CHG.Utilities.Input
 {

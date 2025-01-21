@@ -1,9 +1,11 @@
+using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace CHG.Utilities.Datas
 {
     /// <summary>
-    /// 기타 파일 관리 유틸리티
+    /// 파일 관리 유틸리티 묶음
     /// </summary>
     public static class FileUtility
     {
@@ -23,6 +25,10 @@ namespace CHG.Utilities.Datas
             {
                 return Path.GetFileNameWithoutExtension(filePath);
             }
+        }
+        public static string ExtractFolderName(string filePath)
+        {
+            return Path.GetDirectoryName(filePath);
         }
     }
 }

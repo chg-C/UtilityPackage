@@ -1,12 +1,20 @@
 
 using UnityEngine;
+
 namespace CHG.Utilities.Patterns 
 {
+    //Init Interface
+    public interface IInitializable
+    {
+        public void Init();
+    }
+
+    
     /// <summary>
     /// Singleton Pattern 베이스 클래스
     /// </summary>
     /// <typeparam name="T">Singleton Pattern을 적용할 Monobehaviour</typeparam>
-    public abstract class SingletonMonobehaviour<T> : MonoBehaviour where T : MonoBehaviour
+    public abstract class SingletonMonobehaviour<T> : MonoBehaviour, IInitializable where T : MonoBehaviour, IInitializable
     {
         private static T instance;
         private static readonly object _lock = new object();
@@ -21,7 +29,7 @@ namespace CHG.Utilities.Patterns
             {
                 if(isShutting)
                 {
-                    Debug.LogError("Singleton Instance " + typeof(T) + " already destroyed.");
+                    Debug.LogError(typeof(T) + " - 어플리케이션 종료중 호출되었습니다.");
                     return null;
                 }
 
@@ -34,10 +42,18 @@ namespace CHG.Utilities.Patterns
                         {
                             GameObject singletonObj = new GameObject();
                             instance = singletonObj.AddComponent<T>();
+                            instance.Init();
 
-                            singletonObj.name = typeof(T).ToString() + " Singleton";
+                            singletonObj.name = "_Singleton_"+typeof(T).ToString();
                             
                             DontDestroyOnLoad(singletonObj);
+                        }
+                        else
+                        {
+                            if(instance.transform.parent != null)
+                                instance.transform.parent = null;
+                                
+                            DontDestroyOnLoad(instance.gameObject);
                         }
                     }
                 }
@@ -45,14 +61,27 @@ namespace CHG.Utilities.Patterns
                 return instance;
             }
         }
-        
-        private void OnApplicationQuit() {
-            isShutting = true;
+
+        protected virtual void Start()
+        {
+            if(Instance != null && Instance != this)
+            {
+                Destroy(this.gameObject);
+            }
         }
         
+
         /// <summary>
-        /// 현재 Singleton 객체의 유효성 확인
-        /// <br/>
+        /// Instance 생성시 확실하게 호출되는 초기화 함수 <br/>
+        /// 해당 기능이 필요하다면 재정의해서 사용할 것
+        /// </summary>
+        public virtual void Init()
+        {
+
+        }
+
+        /// <summary>
+        /// 현재 Singleton 객체의 유효성 확인 <br/>
         /// 사용 가능하다면 true, 프로그램이 종료중이거나 현재 Instance가 아직 존재하지 않는다면 false
         /// </summary>
         public static bool IsAvailable {
@@ -62,6 +91,12 @@ namespace CHG.Utilities.Patterns
 
                 return true;
             }
+        }
+
+        //
+        private void OnApplicationQuit() {
+            isShutting = true;
+            instance = null;
         }
     }
 }
