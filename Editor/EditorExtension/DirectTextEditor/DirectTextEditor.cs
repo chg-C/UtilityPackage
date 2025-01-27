@@ -29,6 +29,7 @@ namespace CHG.Editor.Texts
         private string lastText;
 
         private bool isBodyFold = false;
+        private bool isFootFold = false;
 
         private bool isDirty = false;
 
@@ -134,16 +135,27 @@ namespace CHG.Editor.Texts
                 {
                     UpdateAsset(targetAsset);
                 }
+                if(GUILayout.Button("다른 이름으로 저장"))
+                {
+                    SaveAs();
+                }
                 GUILayout.EndHorizontal();
                 GUI.enabled = true;
                 EditorGUI.EndDisabledGroup();
             }
-            //Foot
-            footer.DrawFoot(targetFileInfo);
+            isFootFold = EditorGUILayout.Foldout(isFootFold, "파일 설정", true);
+            if(isFootFold)
+            {
+                //Footer
+                footer.DrawFoot(targetFileInfo);
+            }
 
             GUILayout.EndVertical();
         }
-
+        private void SaveAs()
+        {
+            
+        }
         private void UpdateAsset(TextAsset textAsset)
         {
             var path = AssetDatabase.GetAssetPath(textAsset);

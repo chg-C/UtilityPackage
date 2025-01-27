@@ -9,7 +9,7 @@ namespace CHG.Editor.Texts
         public FileInfo DrawFoot(FileInfo info)
         {
             info.IsReadOnly = EditorGUILayout.Toggle("읽기 전용", info.IsReadOnly);
-
+            
             return info;
         }
     }

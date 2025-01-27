@@ -24,7 +24,7 @@ public class PackageCreater : EditorWindow
         [MenuItem("Assets/Create/Package/Create Custom Package Here")]
         private static void ShowWindow()
         {
-            GetWindow<PackageCreater>(true, "Create Package");
+            PackageCreater pc = GetWindow<PackageCreater>(true, "Create Package");
         }
 
         private void OnEnable() {
