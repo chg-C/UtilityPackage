@@ -1,10 +1,23 @@
+# UtilityPackage - v0.0.6
+10 - 02 - 2025
+### 추가(Added)
+-Bootstrap 기능
+
+### 변경(Modified)
+-Singleton 패턴 클래스의 Persistent 설정 가능
+
+# UtilityPackage - v0.0.5
+27 - 01 - 2025
+### 추가(Added)
+-StringBuilder 등의 최적화 사용을 위한 Static Value 클래스들
+
 # UtilityPackage - v0.0.4
-21 - 01 - 2024
+21 - 01 - 2025
 ### 추가(Added)
 -커스텀 패키지 레이아웃 생성을 보조하는 PackageCreater
 
 # UtilityPackage - v0.0.3
-17 - 01 - 2024
+17 - 01 - 2025
 ### 추가(Added)
 -GameObject 자체 비활성화
 
@@ -14,7 +27,7 @@
 -에디터 / 플레이중에만 선택적으로 외부 접근을 막아주는 ReadOnly 어트리뷰트
 
 # UtilityPackage - v0.0.2
-08 - 01 - 2024
+08 - 01 - 2025
 ### 추가(Added)
 -단축키 액션
 	-탭 닫기(Ctrl+W)

@@ -8,17 +8,28 @@ namespace CHG.Utilities.Patterns
     {
         public void Init();
     }
+    public interface ISingleton<T>
+    {
+        public static T Instance {get;}
+        public bool IsPersistent {get;}
+    }
 
     
     /// <summary>
     /// Singleton Pattern 베이스 클래스
     /// </summary>
     /// <typeparam name="T">Singleton Pattern을 적용할 Monobehaviour</typeparam>
-    public abstract class SingletonMonobehaviour<T> : MonoBehaviour, IInitializable where T : MonoBehaviour, IInitializable
+    public abstract class SingletonMonobehaviour<T> : MonoBehaviour, IInitializable, ISingleton<T> 
+                                            where T : MonoBehaviour, IInitializable, ISingleton<T>
     {
         private static T instance;
         private static readonly object _lock = new object();
         private static bool isShutting = false;
+
+        /// <summary>
+        /// 이 Singleton 클래스가 Scene이 바뀌어도 유지되는지 여부, 기본 true. 변경하고 싶다면 override해서 사용할 것.
+        /// </summary>
+        public virtual bool IsPersistent => true;
 
         /// <summary>
         /// Singleton 객체
@@ -46,14 +57,18 @@ namespace CHG.Utilities.Patterns
 
                             singletonObj.name = "_Singleton_"+typeof(T).ToString();
                             
-                            DontDestroyOnLoad(singletonObj);
+                            if(instance.IsPersistent == true)
+                                DontDestroyOnLoad(singletonObj);
                         }
                         else
                         {
-                            if(instance.transform.parent != null)
-                                instance.transform.parent = null;
-                                
-                            DontDestroyOnLoad(instance.gameObject);
+                            if(instance.IsPersistent)
+                            {
+                                if(instance.transform.parent != null)
+                                    instance.transform.parent = null;
+
+                                    DontDestroyOnLoad(instance.gameObject);
+                            }
                         }
                     }
                 }
@@ -92,7 +107,12 @@ namespace CHG.Utilities.Patterns
                 return true;
             }
         }
-
+        private void OnDestroy() {
+            if(!isShutting)
+            {
+                instance = null;
+            }
+        }
         //
         private void OnApplicationQuit() {
             isShutting = true;

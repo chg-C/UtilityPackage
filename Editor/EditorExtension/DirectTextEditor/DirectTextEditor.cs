@@ -44,8 +44,6 @@ namespace CHG.Editor.Texts
         }
         void ChangeTarget()
         {
-            Debug.Log("Target Changed");
-
             header?.OnTargetChanged();
             for(int i = 0; i < customEditors.Length; ++i)
             {
