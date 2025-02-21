@@ -1,3 +1,12 @@
+# UtilityPackage - v0.0.7
+21 - 02 - 202521
+### 추가(Added)
+-ScripteTemplates 관리 시스템 추가
+
+### 제거(Removed)
+-InputManager 외부로 분리
+
+
 # UtilityPackage - v0.0.6
 10 - 02 - 2025
 ### 추가(Added)

@@ -19,6 +19,10 @@ namespace CHG.Utilities.Datas
         /// </summary>
         public static bool IsValidSemanticVersion(string text)
         {
+            //버전 관계없음 표시, 확인할 것 없이 통과
+            if(text == "*")
+                return true;
+
             string pattern = @"(\d+)\.(\d+)\.(\d+)(?:-(\w+(\.\w+)*))?(?:\+(\w+(\.\w+)*))?$";
 
             return Regex.IsMatch(text, pattern);

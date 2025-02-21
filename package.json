@@ -1,6 +1,6 @@
 {
   "name": "com.chg.utility",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "displayName": "CHG Utility Package",
   "description": "A Collection of utility classes for Unity3D",
   "unity": "2019.1",
@@ -9,7 +9,6 @@
     "utility"
   ],
   "dependencies": {
-    "com.unity.inputsystem": "^1.10.0"
   },
   "author": {
 	"name": "CHG",

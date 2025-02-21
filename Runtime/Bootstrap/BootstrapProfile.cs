@@ -15,11 +15,13 @@ namespace CHG.Utilities.Bootstrap
         {
             foreach (var prefab in Prefabs)
             {
-                var instance = Instantiate(prefab);
+                if(prefab != null)
+                {
+                    var instance = Instantiate(prefab);
+                    instance.name = prefab.name;
 
-                instance.name = prefab.name;
-
-                DontDestroyOnLoad(instance);
+                    DontDestroyOnLoad(instance);
+                }
             }
         }
     }

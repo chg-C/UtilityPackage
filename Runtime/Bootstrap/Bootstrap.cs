@@ -7,12 +7,13 @@ using UnityEngine;
 namespace CHG.Utilities.Bootstrap
 {
     /// <summary>
-    /// 
+    /// Bootstrap 설정 클래스
+    /// BootstrapProfile을 사용해서 프로필 안에 있는 Prefab들을 게임 시작 전에 로딩
     /// </summary>
     public sealed class Bootstrap : ScriptableObject
     {
         public const string SettingPath = "Bootstrap";
-        public const string DefaultName = "DefaultBootstrap";
+        public const string SettingName = "BootstrapSetting";
 
         [SerializeField]
         private BootstrapProfile profile = null;
@@ -33,7 +34,7 @@ namespace CHG.Utilities.Bootstrap
         }
         public static Bootstrap FindBootstrap()
         {
-            return Resources.Load<Bootstrap>(SettingPath+"/"+DefaultName);
+            return Resources.Load<Bootstrap>(SettingPath+"/"+SettingName);
         }
     }
 }
