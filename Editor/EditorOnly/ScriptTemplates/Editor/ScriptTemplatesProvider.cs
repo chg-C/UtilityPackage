@@ -32,8 +32,6 @@ namespace CHG.Editor.ScriptTemplator
 
         void OnChanged()
         {
-            Debug.Log("OnChanged");
-
             templateAssets = LoadTXTAssets(templateSetting.templatesPath);
             prevPath = templateSetting.templatesPath;
             templateList.list = templateAssets;
@@ -122,7 +120,6 @@ namespace CHG.Editor.ScriptTemplator
             {
                 templates = InitScriptTempates();
             }
-            Debug.Log("Register Provider");
             
             return CreateProvider("Project/CHG/Script Templates", templates);
         }
@@ -145,10 +142,9 @@ namespace CHG.Editor.ScriptTemplator
             return templates;
         }
 
-        [MenuItem("Tools/CHG/Script Templates")]
+        [MenuItem("Tools/CHG/Script Templates", priority = 21)]
         static void OpenProvider()
         {
-            Debug.Log("Open Provider");
             SettingsService.OpenProjectSettings("Project/CHG/Script Templates");
         }
         #endregion

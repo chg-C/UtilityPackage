@@ -389,7 +389,7 @@ limitations under the License.";
         public class Dependency
         {
             public string targetPackageName; //필요 패키지 이름
-            public string versionRequired; //필요 패키지 버전(앞에 ^가 붙으면 최소 버전)
+            public string versionRequired; //필요 패키지 버전
         }
         [System.Serializable]
         public class Samples

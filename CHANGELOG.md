@@ -1,19 +1,29 @@
+# UtilityPackage - v0.0.8
+07 - 03 - 2025
+### 추가(Added)
+-충돌체 이벤트 핸들러Collider Event Handler
+-절차적 이벤트 처리Sequential Event Scheduler
+
+### 변경(Modified)
+ConditionalHide Attribute 개선
+TilingWindow 개선
+
 # UtilityPackage - v0.0.7
 21 - 02 - 202521
 ### 추가(Added)
--ScripteTemplates 관리 시스템 추가
+- ScripteTemplates 관리 시스템 추가
 
 ### 제거(Removed)
--InputManager 외부로 분리
+- InputManager 외부로 분리
 
 
 # UtilityPackage - v0.0.6
 10 - 02 - 2025
 ### 추가(Added)
--Bootstrap 기능
+- Bootstrap 기능
 
 ### 변경(Modified)
--Singleton 패턴 클래스의 Persistent 설정 가능
+- Singleton 패턴 클래스의 Persistent 설정 가능
 
 # UtilityPackage - v0.0.5
 27 - 01 - 2025
@@ -38,26 +48,26 @@
 # UtilityPackage - v0.0.2
 08 - 01 - 2025
 ### 추가(Added)
--단축키 액션
-	-탭 닫기(Ctrl+W)
-	-인스펙터 잠금(Ctrl+L)
--인스펙터에서 텍스트 파일 수정
+- 단축키 액션
+	- 탭 닫기(Ctrl+W)
+	- 인스펙터 잠금(Ctrl+L)
+- 인스펙터에서 텍스트 파일 수정
 
 # UtilityPackage - v0.0.1
 06 - 01 - 2025
 ### 추가(Added)
--기본 Patterns
-    -Singleton
-    -State
-    -Command
-    -Strategy
--InputSystem 연동 GlobalInputManager
--사운드 매니저 클래스
-    -BGM
-    -SFX
--GameObject 자체 파괴
--UI 확장
-    -버튼(Down / Up 이벤트 분리)
--데이터 유틸리티
-    -INI 파일 관리
-    -PlayerPrefs 확장
+- 기본 Patterns
+    - Singleton
+    - State
+    - Command
+    - Strategy
+- InputSystem 연동 GlobalInputManager
+- 사운드 매니저 클래스
+    - BGM
+    - SFX
+- GameObject 자체 파괴
+- UI 확장
+    - 버튼(Down / Up 이벤트 분리)
+- 데이터 유틸리티
+    - INI 파일 관리
+    - PlayerPrefs 확장

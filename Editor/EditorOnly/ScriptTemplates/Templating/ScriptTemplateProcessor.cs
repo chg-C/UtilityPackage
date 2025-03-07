@@ -23,7 +23,6 @@ namespace CHG.Editor.ScriptTemplator
             ///수정해야 할 파일은 meta 파일이 아니라 cs 파일이므로 경로 재설정
             path = path.Replace(".cs.meta", ".cs");
 
-            Debug.Log("Replacing");
             ScriptTemplates templateSetting = AssetDatabase.LoadAssetAtPath<ScriptTemplates>(ScriptTemplates.FullName);
             if(templateSetting == null || templateSetting.keywordsData == null)
             {

@@ -22,15 +22,26 @@ namespace CHG.Editor.Placement
 		{
 			prefab = (GameObject)EditorGUILayout.ObjectField("Tile Prefab", prefab, typeof(GameObject), true);
 			originPoint = (Transform)EditorGUILayout.ObjectField("Origin Point Transform", originPoint, typeof(Transform), true);
+			if(originPoint != null && prefab != null)
+			{
+				if(originPoint == prefab.transform || originPoint.IsChildOf(prefab.transform))
+				{
+					Debug.LogWarning("Origin Point can't be Prefab's Transform");
+					originPoint = null;
+				}
+			}
 			tileCount = EditorGUILayout.Vector3IntField("Rows & Cols", tileCount);
 			scale = EditorGUILayout.Vector3Field("Scale Of Tile", scale);
 			spacing = EditorGUILayout.Vector3Field("Spacing", spacing);
 			isCenterPivot = EditorGUILayout.Toggle("Is Using Center Pivot?", isCenterPivot);
 
+			bool was = GUI.enabled;
+			GUI.enabled = prefab != null;
 			if(GUILayout.Button("Tiling Prefab"))
 			{
 				Tiling();
 			}
+			GUI.enabled = was;
 		}
 
         private void Tiling()
@@ -56,7 +67,8 @@ namespace CHG.Editor.Placement
 						position.z += (k*spacing.z);
 
 						GameObject newOne = Instantiate(prefab);
-						newOne.transform.SetParent(originPoint);
+						if(originPoint != null)
+							newOne.transform.SetParent(originPoint);
 
 						newOne.transform.localPosition = position;
 						newOne.transform.localRotation = Quaternion.identity;
@@ -67,7 +79,7 @@ namespace CHG.Editor.Placement
         }
 
         #region Window Opening	
-        [MenuItem("Tools/CHG/Placement/Tiling GameObjects")]
+        [MenuItem("Tools/CHG/GameObjects/Tiling GameObjects", priority = 51)]
 		public static void ShowWindow()
 		{
 			GetWindow<TilingWindow>("Tiling GameObjects");

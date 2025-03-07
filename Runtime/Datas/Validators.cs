@@ -10,7 +10,7 @@ namespace CHG.Utilities.Datas
         /// </summary>
         public static bool IsValidReverseDomain(string text)
         {
-            string pattern = @"^(?!-)[A-Za-z0-9-]{1,63}(?<!-)(\.[A-Za-z]{2,})+$";
+            string pattern = @"(?!-)[A-Za-z0-9-]{1,63}(?<!-)(\.[A-Za-z]{2,})+$";
 
             return Regex.IsMatch(text, pattern) && text.StartsWith("com.");
         }
@@ -19,11 +19,11 @@ namespace CHG.Utilities.Datas
         /// </summary>
         public static bool IsValidSemanticVersion(string text)
         {
-            //버전 관계없음 표시, 확인할 것 없이 통과
+            //버전 관계없음 표시, 즉시 통과
             if(text == "*")
                 return true;
-
-            string pattern = @"(\d+)\.(\d+)\.(\d+)(?:-(\w+(\.\w+)*))?(?:\+(\w+(\.\w+)*))?$";
+            //UnityPackage는 하위 버전에 x 사용 가능
+            string pattern = @"^(\d+)\.(x|\d+)\.(x|\d+)(-([\da-zA-Z-]+(\.[\da-zA-Z-]+)*))?(\+([\da-zA-Z0-9-]+(\.[\da-zA-Z0-9-]+)*))?$";
 
             return Regex.IsMatch(text, pattern);
         }

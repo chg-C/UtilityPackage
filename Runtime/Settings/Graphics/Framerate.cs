@@ -2,6 +2,9 @@ using UnityEngine;
 
 namespace CHG.Utilities.Settings.Graphics
 {
+    /// <summary>
+    /// Framerate 설정 관련
+    /// </summary>
     public class Framerate : MonoBehaviour
     {
         [SerializeField]

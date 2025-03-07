@@ -53,7 +53,7 @@ namespace CHG.Editor.Settings
 
         bool initialized = false;
 
-        [MenuItem("Tools/CHG/Setting/Directory Setting")]
+        [MenuItem("Tools/CHG/Setting/Directory Setting", priority = 1)]
         public static void ShowWindow()
         {
             GetWindow<DirectorySetter>("Directory Setter");

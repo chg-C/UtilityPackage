@@ -33,7 +33,7 @@ namespace CHG.Utilities.Bootstrap.Editor
             return bootstrap;
         }
 
-        [MenuItem("Tools/CHG/Bootstrap")]
+        [MenuItem("Tools/CHG/Bootstrap", priority = 62)]
         static void OpenBootstrap()
         {
             SettingsService.OpenProjectSettings("Project/CHG/Bootstrap");
