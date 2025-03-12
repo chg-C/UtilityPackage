@@ -2,7 +2,6 @@
 ///스크립트 담당자 - 최현규
 ///스크립트 생성 버전 - 0.1
 
-using UnityEditorInternal;
 using UnityEngine;
 
 

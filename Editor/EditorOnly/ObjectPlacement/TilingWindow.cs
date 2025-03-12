@@ -12,12 +12,12 @@ namespace CHG.Editor.Placement
 		GameObject prefab;
 		Vector3Int tileCount = Vector3Int.one;
 		Vector3 scale = Vector3.one;
+		Vector3 offset = Vector3.zero;
 		bool isCenterPivot = true;
+		bool isLocalPosition = true;
 		Vector3 spacing;
 		Transform originPoint;
 
-		
-		
 		private void OnGUI()
 		{
 			prefab = (GameObject)EditorGUILayout.ObjectField("Tile Prefab", prefab, typeof(GameObject), true);
@@ -30,11 +30,20 @@ namespace CHG.Editor.Placement
 					originPoint = null;
 				}
 			}
+			
 			tileCount = EditorGUILayout.Vector3IntField("Rows & Cols", tileCount);
+			offset = EditorGUILayout.Vector3Field("Offset", offset);
 			scale = EditorGUILayout.Vector3Field("Scale Of Tile", scale);
 			spacing = EditorGUILayout.Vector3Field("Spacing", spacing);
-			isCenterPivot = EditorGUILayout.Toggle("Is Using Center Pivot?", isCenterPivot);
-
+			
+			using(new EditorGUILayout.HorizontalScope())
+			{
+				isCenterPivot = EditorGUILayout.Toggle("Using Center Pivot", isCenterPivot);
+				if(originPoint != null)
+				{
+					isLocalPosition = EditorGUILayout.Toggle("Using Local Position", isLocalPosition);
+				}
+			}
 			bool was = GUI.enabled;
 			GUI.enabled = prefab != null;
 			if(GUILayout.Button("Tiling Prefab"))
@@ -46,13 +55,24 @@ namespace CHG.Editor.Placement
 
         private void Tiling()
         {
-			Vector3 center = Vector3.zero;
+			Undo.IncrementCurrentGroup();
+			int group = Undo.GetCurrentGroup();
+
+			Transform parent = originPoint;
+			if(parent == null)
+			{
+				parent = new GameObject("TileHolder").transform;
+				Undo.RegisterCreatedObjectUndo(parent.gameObject, "Tiling GameObject");
+			}			
+
+			Vector3 center = offset;
 			if(isCenterPivot)
 			{
 				center.x -= (tileCount.x/2)*spacing.x;
 				center.y -= (tileCount.y/2)*spacing.y;
 				center.z -= (tileCount.z/2)*spacing.z;
 			}
+
 			Vector3 position = Vector3.zero;
 			for(int i = 0; i < tileCount.x; ++i)
 			{
@@ -67,15 +87,19 @@ namespace CHG.Editor.Placement
 						position.z += (k*spacing.z);
 
 						GameObject newOne = Instantiate(prefab);
-						if(originPoint != null)
-							newOne.transform.SetParent(originPoint);
-
-						newOne.transform.localPosition = position;
-						newOne.transform.localRotation = Quaternion.identity;
+						
+						newOne.transform.SetParent(parent);
+						if(isLocalPosition)
+							newOne.transform.localPosition = position;
+						else
+							newOne.transform.position = position;
+						newOne.transform.localRotation = prefab.transform.localRotation;
 						newOne.transform.localScale = scale;
+						Undo.RegisterCreatedObjectUndo(newOne, "Tiling GameObject");
 					}
 				}
 			}
+			Undo.CollapseUndoOperations(group);
         }
 
         #region Window Opening	

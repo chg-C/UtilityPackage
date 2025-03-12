@@ -74,6 +74,6 @@ Editor / Runtime 상황 중 원하는 상황에 값 변경을 방지
 
 ## TriggerTaskScheduler
 
-여러 개의 동작을 연계해서 하나의 Trigger로 사용할 수 있게 묶어주는 Scheduler 시스템
+여러 개의 동작을 연결해서 하나의 Trigger로 사용할 수 있게 묶어주는 Scheduler 시스템
 
 ---

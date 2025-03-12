@@ -1,6 +1,6 @@
 ///스크립트 생성 일자 - 2025 - 03 - 10
-///스크립트 담당자 - #AUTHOR#
-///스크립트 생성 버전 - 0.1
+///스크립트 담당자 - 최현규
+///스크립트 생성 버전 - 0.0.8
 
 using System;
 using System.Collections;
@@ -27,7 +27,8 @@ namespace CHG.Utilities.Triggers
 
 		#region Fields
 		Transform _transform;
-		TriggerTask[] tasks;
+		[SerializeField, HideInInspector]
+		TriggerTask[] _tasks;
 		#endregion
 		
 		#region Properties
@@ -36,14 +37,19 @@ namespace CHG.Utilities.Triggers
 			get => _mode;
 			set => _mode = value;
 		}
+		public TriggerTask[] Tasks
+		{
+			get => _tasks;
+			set => _tasks = value;
+		}
 		#endregion
 		
 		#region Methods
 		protected void ResetAllTasks()
 		{
-			for(int i = 0; i < tasks.Length; ++i)
+			for(int i = 0; i < _tasks.Length; ++i)
 			{
-				tasks[i].Reset();
+				_tasks[i].Reset();
 			}
 		}
 		public void Execute()
@@ -69,11 +75,11 @@ namespace CHG.Utilities.Triggers
 			int currentIndex = 0;
 
 			ResetAllTasks();
-			while(currentIndex < tasks.Length)
+			while(currentIndex < _tasks.Length)
 			{
-				if(tasks[currentIndex] != null && tasks[currentIndex].isActiveAndEnabled)
+				if(_tasks[currentIndex] != null && _tasks[currentIndex].isActiveAndEnabled)
 				{
-					state = tasks[currentIndex].Tick(Time.deltaTime);
+					state = _tasks[currentIndex].Tick(Time.deltaTime);
 					if(state == TaskState.Completed)
 					{
 						++currentIndex;
@@ -94,11 +100,11 @@ namespace CHG.Utilities.Triggers
 			var wait = new WaitForEndOfFrame();
 			do
 			{
-				for(int i = 0; i < tasks.Length; ++i)
+				for(int i = 0; i < _tasks.Length; ++i)
 				{
-					if(tasks[i] != null && tasks[i].isActiveAndEnabled && tasks[i].CurrentState != TaskState.Completed)
+					if(_tasks[i] != null && _tasks[i].isActiveAndEnabled && _tasks[i].CurrentState != TaskState.Completed)
 					{
-						TaskState state = tasks[i].Tick(Time.deltaTime);
+						TaskState state = _tasks[i].Tick(Time.deltaTime);
 
 						if(state != TaskState.Completed)
 							isCompleted = false;
@@ -112,7 +118,7 @@ namespace CHG.Utilities.Triggers
 		#region MonoBehaviour Methods
 		protected virtual void Awake()
 		{
-			tasks = GetComponents<TriggerTask>();
+			_tasks = GetComponents<TriggerTask>();
 		}
 		#endregion
 	}

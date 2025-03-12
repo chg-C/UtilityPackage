@@ -119,42 +119,25 @@ namespace CHG.Utilities.ColliderEvents
 				return;
 			
 			Gizmos.color = _gizmoColor;// Collider의 타입에 따라 Gizmo 그리기
+			Gizmos.matrix = Matrix4x4.TRS(transform.position, transform.rotation, Vector3.one);
+
             if (collider is BoxCollider)
             {
                 BoxCollider boxCollider = (BoxCollider)collider;
-                Gizmos.DrawWireCube(boxCollider.center + transform.position, boxCollider.size);
+                Gizmos.DrawCube(boxCollider.center, Vector3.Scale(boxCollider.size, transform.lossyScale));
             }
             else if (collider is SphereCollider)
             {
                 SphereCollider sphereCollider = (SphereCollider)collider;
-                Gizmos.DrawWireSphere(sphereCollider.center + transform.position, sphereCollider.radius);
+				float max = Mathf.Max(transform.lossyScale.x, transform.lossyScale.y, transform.lossyScale.z);
+                Gizmos.DrawSphere(sphereCollider.center, sphereCollider.radius * max);
             }
-            else if (collider is CapsuleCollider)
-            {
-                CapsuleCollider capsuleCollider = (CapsuleCollider)collider;
-                Gizmos.DrawWireSphere(capsuleCollider.center + transform.position, capsuleCollider.radius);
-                Gizmos.DrawWireSphere(capsuleCollider.center + transform.position + Vector3.up * capsuleCollider.height * 0.5f, capsuleCollider.radius);
-                Gizmos.DrawWireSphere(capsuleCollider.center + transform.position - Vector3.up * capsuleCollider.height * 0.5f, capsuleCollider.radius);
-            }
-			else if(collider is MeshCollider)
+			else
 			{
-				MeshCollider meshCollider = GetComponent<MeshCollider>();
-				
-				Vector3[] vertices = meshCollider.sharedMesh.vertices;
-				int[] triangles = meshCollider.sharedMesh.triangles;
-
-				for (int i = 0; i < vertices.Length; i++)
-				{
-					vertices[i] = transform.TransformPoint(vertices[i]);
-				}
-
-				for (int i = 0; i < triangles.Length; i += 3)
-				{
-					Gizmos.DrawLine(vertices[triangles[i]], vertices[triangles[i + 1]]);
-					Gizmos.DrawLine(vertices[triangles[i + 1]], vertices[triangles[i + 2]]);
-					Gizmos.DrawLine(vertices[triangles[i + 2]], vertices[triangles[i]]);
-				}
+				Debug.LogWarning("Does Not Support Capsule or Mesh Collider");
+				_showGizmo = false;
 			}
+			Gizmos.matrix = Matrix4x4.identity;
 			
 			string label = gameObject.name;
 			if(!string.IsNullOrEmpty(_tooltipText))
