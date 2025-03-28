@@ -9,36 +9,19 @@ namespace CHG.Utilities.ColliderEvents
     /// <summary>
     /// OnCollisionEnter / OnCollisionExit 이벤트 핸들러
     /// </summary>
-    [DisallowMultipleComponent]
 	public class OnCollisionEventHandler : ColliderEventHandler
 	{
         void OnCollisionEnter(Collision collision)
         {
-            if(NeedTag)
-            {
-                if(collision.gameObject.tag != _targetTag)
-                    return;
-            }
-            if(NeedLayer)
-            {
-                if((_targetLayer.value & (1<<collision.gameObject.layer)) == 0)
-                    return;
-            }
+            if(!CheckCondition(collision.gameObject))
+                return;
 
             _onEnter?.Invoke();
         }
         void OnCollisionExit(Collision collision)
         {
-            if(NeedTag)
-            {
-                if(collision.gameObject.tag != _targetTag)
-                    return;
-            }
-            if(NeedLayer)
-            {
-                if((_targetLayer.value & (1<<collision.gameObject.layer)) == 0)
-                    return;
-            }
+            if(!CheckCondition(collision.gameObject))
+                return;
 
             _onExit?.Invoke();
         }

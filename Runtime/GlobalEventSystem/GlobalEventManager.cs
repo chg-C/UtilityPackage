@@ -14,19 +14,25 @@ namespace CHG.EventDriven
 	public class GlobalEventManager : SingletonMonobehaviour<GlobalEventManager>
 	{
 		#region Inspector Fields
+		/// <summary>
+		/// 미리 등록된 EventArgs 인자값 조건
+		/// </summary>
 		[SerializeField]
 		private Dictionary<string, Type> _fixedAvailableEventArgs = new Dictionary<string, Type>();
 		#endregion
 
 		#region Fields
 		/// <summary>
-		/// Event Dictionaries
+		/// 인자값 없는 Event 목록
 		/// </summary>
+		[SerializeField]
 		Dictionary<string, Action> _voidEventsDictionary = new Dictionary<string, Action>();
 		/// <summary>
 		/// TODO: List<object>를 뭔가 더 나은 방법으로 바꿀 것
 		/// </summary>
+		[SerializeField]
 		Dictionary<string, List<object>> _eventsDictionary = new Dictionary<string, List<object>>();
+		[SerializeField]
 		Dictionary<string, Type> _availableEventArgs = new Dictionary<string, Type>();
         #endregion
 
@@ -46,6 +52,9 @@ namespace CHG.EventDriven
 		#region Methods
 
 		#region Without Arguments
+		/// <summary>
+		/// 인자값 없는 Event 구독
+		/// </summary>
 		public void Subscribe(string name, Action action)
 		{
 			if(!_voidEventsDictionary.ContainsKey(name))
@@ -54,6 +63,9 @@ namespace CHG.EventDriven
 			}
 			_voidEventsDictionary[name] += action;
 		}
+		/// <summary>
+		/// 인자값 없는 Event 구독 해제
+		/// </summary>
 		public void Unsubscribe(string name, Action action)
 		{
 			if(!_voidEventsDictionary.ContainsKey(name))
@@ -61,6 +73,9 @@ namespace CHG.EventDriven
 
 			_voidEventsDictionary[name] -= action;
 		}
+		/// <summary>
+		/// 인자값 없는 Event 발동시키기
+		/// </summary>
 		public void Publish(string name)
 		{
 			if(!_voidEventsDictionary.ContainsKey(name))
@@ -71,6 +86,9 @@ namespace CHG.EventDriven
 		#endregion
 
 		#region With Arguments
+		/// <summary>
+		/// BaseEventArgs를 상속받는 EventArgs 클래스를 인자로 받는 Event 구독
+		/// </summary>
 		public void Subscribe<T>(string name, Action<T> action) where T : BaseEventArgs
 		{
 			if(IsValidArgument<T>(name))
@@ -87,6 +105,9 @@ namespace CHG.EventDriven
 				Debug.LogWarning($"Type Error On Subscribe: Event {name} does not Support {typeof(T)}!");
 			}
 		}
+		/// <summary>
+		/// BaseEventArgs를 상속받는 EventArgs 클래스를 인자로 받는 Event 구독 해제
+		/// </summary>
 		public void Unsubscribe<T>(string name, Action<T> action) where T : BaseEventArgs
 		{
 			if(IsValidArgument<T>(name))
@@ -115,6 +136,9 @@ namespace CHG.EventDriven
 				Debug.LogWarning($"Type Error On Unsubscribe: Event {name} does not Support {typeof(T)}!");
 			}
 		}
+		/// <summary>
+		/// BaseEventArgs를 상속받는 EventArgs 클래스를 인자로 받는 Event 발동
+		/// </summary>
 		public void Publish<T>(string name, T args) where T : BaseEventArgs
 		{
 			if(IsValidArgument<T>(name))

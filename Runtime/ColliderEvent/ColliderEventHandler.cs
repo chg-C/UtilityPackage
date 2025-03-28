@@ -32,7 +32,11 @@ namespace CHG.Utilities.ColliderEvents
 			/// <summary>
 			/// Layer 일치
 			/// </summary>
-			Layers = 1 << 1
+			Layers = 1 << 1,
+			/// <summary>
+			/// Object name 일치
+			/// </summary>
+			Name = 1 << 2
 		}
 		#endregion
 
@@ -45,6 +49,17 @@ namespace CHG.Utilities.ColliderEvents
 		protected string _targetTag;
 		[SerializeField, Tooltip("레이어가 일치해야 발동"), ConditionalHide("NeedLayer")]
 		protected LayerMask _targetLayer;
+		[SerializeField, Tooltip("이름이 일치해야 발동"), ConditionalHide("NeedName")]
+		private string _targetName;
+		
+		/// <summary>
+		/// 이름이 일치해야 발동
+		/// </summary>
+		public string TargetName
+		{
+		   get => _targetName;
+		   set => _targetName = value;
+		}
 
 		[Header("Events")]
 		[SerializeField, Tooltip("진입 이벤트")]
@@ -93,6 +108,7 @@ namespace CHG.Utilities.ColliderEvents
 		}
 		public bool NeedTag => _condition.HasFlag(Condition.Tags);
 		public bool NeedLayer => _condition.HasFlag(Condition.Layers);
+		public bool NeedName => _condition.HasFlag(Condition.Name);
 		#endregion
 		
 		#region Methods
@@ -105,6 +121,23 @@ namespace CHG.Utilities.ColliderEvents
 			 _transform = GetComponent<Transform>();
 			 _collider = GetComponent<Collider>();
 		}
+		protected virtual bool CheckCondition(GameObject other)
+		{
+            if(NeedTag && other.gameObject.tag != _targetTag)
+            {
+				return false;
+            }
+            if(NeedLayer && (_targetLayer.value & (1<<other.layer)) == 0)
+            {
+				return false;
+            }
+			if(NeedName && other.name != TargetName)
+			{
+				return false;
+			}
+
+			return true;
+		}
 		#endregion
 
 		#region MonoBehaviour Methods
@@ -113,6 +146,11 @@ namespace CHG.Utilities.ColliderEvents
 			CacheComponents();
 		}
 		#if UNITY_EDITOR
+		protected virtual void Reset()
+		{
+			_gizmoColor = Color.red;
+			_gizmoColor.a = 0.25f;
+		}
         protected virtual void OnDrawGizmos()
         {
             if(!_showGizmo)
