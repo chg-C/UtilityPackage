@@ -1,4 +1,10 @@
 # UtilityPackage - v0.0.9
+01 - 04 - 2025
+
+### 변경(Modified)
+- 충돌체 이벤트 핸들러 개선
+
+# UtilityPackage - v0.0.9
 12 - 03 - 2025
 ### 추가(Added)
 - 글로벌 이벤트 시스템, Event-Driven 구현

@@ -2,6 +2,7 @@
 ///스크립트 담당자 - 최현규
 ///스크립트 생성 버전 - 0.1
 using UnityEditor;
+using UnityEngine;
 
 namespace CHG.EventDriven
 {
@@ -10,7 +11,6 @@ namespace CHG.EventDriven
 	[CustomEditor(typeof(GlobalEventManager))]
 	public class GlobalEventManagerEditor : Editor
 	{
-		GlobalEventManager targetObject;		
 		
 		void OnEnable()
 		{
@@ -22,6 +22,8 @@ namespace CHG.EventDriven
 		public override void OnInspectorGUI()
 		{
 			DrawDefaultInspector();
+			
+			
 		}
 	}
 }

@@ -153,11 +153,12 @@ namespace CHG.Editor.Settings
             //
             Directory animations = new Directory("애니메이션(Animations)", "Animations", true);
             Directory datas = new Directory("ScriptableObjects 데이터(Data)", "Data", true);
-            Directory textures = new Directory("텍스처(Textures)", "Textures", true);
             Directory fonts = new Directory("폰트(Fonts)", "Fonts", true);
-            Directory models = new Directory("모델(Models)", "Models", true);
-            Directory materials = new Directory("머티리얼(Materials)", "Materials", true);
-            Directory shaders = new Directory("셰이더(Shaders)", "Shaders", true);
+            Directory arts = new Directory("아트(Art)", "Art", true);
+            Directory textures = new Directory("텍스처(Art/Textures)", "Textures", true, arts);
+            Directory models = new Directory("모델(Art/Models)", "Models", true, arts);
+            Directory materials = new Directory("머티리얼(Art/Materials)", "Materials", true, arts);
+            Directory shaders = new Directory("셰이더(Shaders)", "Shaders", true, arts);
             Directory sounds = new Directory("사운드(Sounds)", "Sounds", true);
             Directory bgm = new Directory("배경 음악(Sounds/BGM)", "Sounds/BGM", true, sounds);
             Directory sfx = new Directory("효과음(Sounds/SFX)", "Sounds/SFX", true, sounds);
