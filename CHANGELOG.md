@@ -1,8 +1,19 @@
-# UtilityPackage - v0.0.9
+# UtilityPackage - v0.0.11
+30 - 05 - 2025
+
+### 추가(Added)
+- Stat과 Modifier 시스템
+- Readme 파일 생성기
+
+### 변경(Modified)
+- Directory Setter 내부 메커니즘 개선
+
+# UtilityPackage - v0.0.10
 01 - 04 - 2025
 
 ### 변경(Modified)
 - 충돌체 이벤트 핸들러 개선
+- Directory Setter를 좀 더 Unity 표준(https://unity.com/resources/create-code-c-sharp-style-guide-e-book)에 가깝게 수정
 
 # UtilityPackage - v0.0.9
 12 - 03 - 2025
